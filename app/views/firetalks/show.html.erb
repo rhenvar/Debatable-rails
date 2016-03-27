@@ -190,6 +190,9 @@ $(document).ready(function(){
 <div class="message_container">
   <div id="firetalk_room">
     <p class="alert"> Welcome to the chat room! </p>
+    <% @firetalk.firetalk_messages.each do |message| %>
+    <p><%= message.name << ": " << message.content %></p>
+    <% end %>
   </div>
 
   <!--form id="new_firetalk_message_form">
@@ -197,7 +200,13 @@ $(document).ready(function(){
     <input type="submit" value="Send">
   </form-->
   <%= form_for FiretalkMessage.new, :url => "/firetalk_message", :remote => true, :id => "new_firetalk_message_form", :protocol => 'https', :method => 'POST' do |m| %>
-  <%= m.hidden_field(:name, :value => "Anonymous") %>
+  <% name = '' %>
+  <% if @my_name %>
+    <% name = @my_name %>
+  <% else %>
+    <% name = escape_javascript('Anonymous_' << (0...5).map { (65 + rand(50)).chr }.join) %>
+  <% end %>
+  <%= m.hidden_field(:name, :value => name) %>
   <%= m.hidden_field(:firetalk_id, :value => @firetalk.id) %>
   <%= m.text_field(:content, :id => "message", :required => true) %>
   <%= m.submit(:id => "submit") %>
@@ -222,6 +231,8 @@ var apiKey = '45241592';
 var sessionId = "<%= j @firetalk.tok_session_id %>";
 var token = "<%= j @tok_token %>";
 var myEmail = "<%= j @user.email if @user %>";
+
+var myName;
 var myName = "<%= j @user.firstname if @user %>";
 var debatersJson = JSON.parse("<%= j @firetalk_json.to_s.html_safe %>");
 var isDebater = "<%= @is_debater %>";
@@ -232,10 +243,8 @@ var playersAlive = [];
 // FAYE MESSAGING
 var faye_subscribe = new Faye.Client('https://0.0.0.0:9292/faye');
 var public_subscription = faye_subscribe.subscribe('/firetalk_messages', function(data) {
-  alert("RECIEVED");
   $('<p></p>').html(data.username + ": " + data.msg).appendTo('#firetalk_room');
 });
-alert("subscribed!");
 
 // connecting logic
 TB.setLogLevel(TB.DEBUG);
