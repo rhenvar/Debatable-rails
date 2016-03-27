@@ -13,6 +13,10 @@ gem 'nokogiri'
 gem 'chosen-rails'
 # # faye rack server for JavaScript
 gem 'faye'
+
+# #
+gem 'faye-rails', '~> 2.0'
+
 # # Thin webserver for faye async
 gem 'thin'
 # # Video Streams

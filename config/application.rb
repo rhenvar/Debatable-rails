@@ -25,5 +25,7 @@ module DebatableRails
     # config.i18n.default_locale = :de
     # config.middleware.use Rack::SSL
     config.action_mailer.default_url_options = { host: 'gmail.com' }
+    config.middleware.delete Rack::Lock
+    config.middleware.use FayeRails::Middleware, mount: '/faye', :timeout => 25
   end
 end
