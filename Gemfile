@@ -55,6 +55,9 @@ gem 'pg'
 gem 'pry'
 
 gem 'eventmachine'
+
+# So rackup server is using https
+gem 'rack-ssl'
 #
 #
 # # Use Capistrano for deployment

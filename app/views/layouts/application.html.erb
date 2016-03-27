@@ -7,6 +7,7 @@
 
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= stylesheet_link_tag 'application', 'token-input' %>
+  <%= javascript_include_tag "//0.0.0.0:9292/faye.js" %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
   <%= csrf_meta_tags %>
@@ -27,7 +28,7 @@
   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=281009785261501";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-    
+
 
     <div class="section group header-span">
       <%= render 'layouts/header' %>

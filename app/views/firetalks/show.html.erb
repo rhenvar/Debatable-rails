@@ -187,6 +187,22 @@ $(document).ready(function(){
         </div>
         </div>
 
+<div class="message_container">
+  <div id="firetalk_room">
+    <p class="alert"> Welcome to the chat room! </p>
+  </div>
+
+  <!--form id="new_firetalk_message_form">
+    <input type="text" id="message" name="message">
+    <input type="submit" value="Send">
+  </form-->
+  <%= form_for FiretalkMessage.new, :url => "/firetalk_message", :remote => true, :id => "new_firetalk_message_form", :protocol => 'https', :method => 'POST' do |m| %>
+  <%= m.hidden_field(:name, :value => "Anonymous") %>
+  <%= m.hidden_field(:firetalk_id, :value => @firetalk.id) %>
+  <%= m.text_field(:content, :id => "message", :required => true) %>
+  <%= m.submit(:id => "submit") %>
+  <% end %>
+</div>
 
 
 
@@ -212,6 +228,14 @@ var isDebater = "<%= @is_debater %>";
 var isOwner = "<%= @is_owner %>";
 var firetalkGoing = false;
 var playersAlive = [];
+
+// FAYE MESSAGING
+var faye_subscribe = new Faye.Client('https://0.0.0.0:9292/faye');
+var public_subscription = faye_subscribe.subscribe('/firetalk_messages', function(data) {
+  alert("RECIEVED");
+  $('<p></p>').html(data.username + ": " + data.msg).appendTo('#firetalk_room');
+});
+alert("subscribed!");
 
 // connecting logic
 TB.setLogLevel(TB.DEBUG);

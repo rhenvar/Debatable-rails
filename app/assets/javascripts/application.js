@@ -39,6 +39,7 @@ $(function() {
  */
 
 $(function() {
+
   $("#user_tokens").tokenInput("/users.json", {
     propertyToSearch: 'fullname'
   });
