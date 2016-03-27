@@ -241,7 +241,7 @@ var firetalkGoing = false;
 var playersAlive = [];
 
 // FAYE MESSAGING
-var faye_subscribe = new Faye.Client('https://0.0.0.0:9292/faye');
+var faye_subscribe = new Faye.Client('https://localhost:9292/faye');
 var public_subscription = faye_subscribe.subscribe('/firetalk_messages', function(data) {
   $('<p></p>').html(data.username + ": " + data.msg).appendTo('#firetalk_room');
 });

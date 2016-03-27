@@ -1,5 +1,5 @@
 $('#message').val('');
-var faye = new Faye.Client('https://0.0.0.0:9292/faye');
+var faye = new Faye.Client('https://localhost:9292/faye');
 faye.publish('/firetalk_messages', {
   username: "<%= @firetalk_message.name %>",
   msg: "<%= j @firetalk_message.content %>"
