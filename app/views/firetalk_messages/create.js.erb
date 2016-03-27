@@ -1,6 +1,6 @@
 $('#message').val('');
 var faye = new Faye.Client('/faye');
-faye.publish('/firetalk_messages', {
+faye.publish("/firetalk_messages/" + "<%= @firetalk.id %>", {
   username: "<%= @firetalk_message.name %>",
   msg: "<%= j @firetalk_message.content %>"
 });

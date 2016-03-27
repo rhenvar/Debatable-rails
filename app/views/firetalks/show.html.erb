@@ -242,7 +242,7 @@ var playersAlive = [];
 
 // FAYE MESSAGING
 var faye_subscribe = new Faye.Client('/faye');
-var public_subscription = faye_subscribe.subscribe('/firetalk_messages', function(data) {
+var public_subscription = faye_subscribe.subscribe("/firetalk_messages/" + "<%= @firetalk.id %>", function(data) {
   $('<p></p>').html(data.username + ": " + data.msg).appendTo('#firetalk_room');
 });
 
